@@ -7,15 +7,13 @@ const Home = props => {
   const spotify = new Spotify(token);
 
   const changeSongToDisco = async () => {
-    if (token !== null) {
-      try {
-        const devices = await spotify.getDevices();
-        const deviceId = devices.data.devices[0].id;
-        console.log(deviceId);
-        spotify.changeSongInDevice(deviceId);
-      } catch (err) {
-        console.log(err);
-      }
+    try {
+      const devices = await spotify.getDevices();
+      const deviceId = devices.data.devices[0].id;
+      console.log(deviceId);
+      spotify.changeSongInDevice(deviceId);
+    } catch (err) {
+      console.log(err);
     }
   };
   return (

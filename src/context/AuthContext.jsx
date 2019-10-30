@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 
 const defaultContext = {
-  token: null,
-  onTokenChange: () => {}
+  onTokenChange: () => {},
+  isAuthenticated: () => {}
 };
 
 const AuthContext = React.createContext(defaultContext);
@@ -16,10 +16,13 @@ export const AuthContextProvider = props => {
     setToken(newToken)
   }
 
+  const isAuthenticated  = () => Boolean(token)
+
   return (
     <AuthContext.Provider value={{
       token: token,
       onTokenChange: updateToken,
+      isAuthenticated: isAuthenticated,
     }}>
       {console.log(token)}
       {props.children}

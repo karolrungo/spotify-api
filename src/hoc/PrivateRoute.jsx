@@ -3,33 +3,24 @@
 
 // If they are: they proceed to the page
 // If not: they are redirected to the login page.
-import React from 'react';
+import React, {useContext} from 'react';
 import {Redirect, Route} from 'react-router-dom';
 import AuthContext from './../context/AuthContext';
 
 const PrivateRoute = ({component: Component, ...rest}) => {
+  const {isAuthenticated} = useContext(AuthContext);
+
   return (
-    <AuthContext.Consumer>
-      {context => (
-        <Route
-          {...rest}
-          render={props => {
-            console.log(context.token);
-            if (context.token !== null) {
-              console.log('zalogowany!');
-              return <Component {...props} />;
-            } else {
-              console.log('redirect to login');
-              return (
-                <Redirect
-                  to={{pathname: '/login', state: {from: props.location}}}
-                />
-              );
-            }
-          }}
-        />
-      )}
-    </AuthContext.Consumer>
+    <Route
+      {...rest}
+      render={props =>
+        isAuthenticated() ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to={{pathname: '/login', state: {from: props.location}}} />
+        )
+      }
+    />
   );
 };
 
