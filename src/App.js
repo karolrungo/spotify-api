@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom';
 import PrivateRoute from './hoc/PrivateRoute';
 import Login from './components/Login';
 import Home from './components/Home';
@@ -9,13 +9,13 @@ import Home from './components/Home';
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <Router>
         <Switch>
           <Route path="/login" component={Login} />
           <PrivateRoute exact path="/" component={Home} />
           <Route render={() => <Redirect to="/" />} />
         </Switch>
-      </BrowserRouter>
+      </Router>
     </div>
   );
 }
