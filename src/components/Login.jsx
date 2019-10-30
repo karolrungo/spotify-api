@@ -23,12 +23,18 @@ const Login = props => {
   console.log(authContext)
 
   useEffect(() => {
+    console.log(window.history.state)
     if(window.history.state === null) {
       console.log(`null history state`)
       return
     }
     let hash = window.history.state.state.from.hash
-    const access_token = hash
+    if (!hash) {
+      console.log(`nullable hash`)
+      return
+    }
+    console.log(hash)
+    const { access_token } = hash
       .substring(1)
       .split('&')
       .reduce(function(initial, item) {
@@ -38,7 +44,7 @@ const Login = props => {
         }
         return initial;
       }, {});
-    console.log(access_token)
+    console.log(JSON.stringify(access_token))
     if (access_token) {
       console.log(`update token: ${access_token}`)
       authContext.onTokenChange(access_token);

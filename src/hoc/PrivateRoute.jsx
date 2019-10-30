@@ -13,15 +13,20 @@ const PrivateRoute = ({component: Component, ...rest}) => {
       {context => (
         <Route
           {...rest}
-          render={props =>
-            context.token !== null ? (
-              <Component {...props} />
-            ) : (
-              <Redirect
-                to={{pathname: '/login', state: {from: props.location}}}
-              />
-            )
-          }
+          render={props => {
+            console.log(context.token);
+            if (context.token !== null) {
+              console.log('zalogowany!');
+              return <Component {...props} />;
+            } else {
+              console.log('redirect to login');
+              return (
+                <Redirect
+                  to={{pathname: '/login', state: {from: props.location}}}
+                />
+              );
+            }
+          }}
         />
       )}
     </AuthContext.Consumer>

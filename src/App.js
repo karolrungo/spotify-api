@@ -7,21 +7,16 @@ import Login from './components/Login';
 import Home from './components/Home';
 
 function App() {
-
   return (
-        <div className="App">
-          <BrowserRouter>
-            <Switch>
-              <Route path="/login" component={Login} />
-              <PrivateRoute
-                exact
-                path="/"
-                component={() => <Home token={null} />}
-              />
-              <Route render={() => <Redirect to="/" />} />
-            </Switch>
-          </BrowserRouter>
-        </div>
+    <div className="App">
+      <BrowserRouter>
+        <Switch>
+          <Route path="/login" component={Login} />
+          <PrivateRoute exact path="/" component={Home} />
+          <Route render={() => <Redirect to="/" />} />
+        </Switch>
+      </BrowserRouter>
+    </div>
   );
 }
 
