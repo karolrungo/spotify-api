@@ -4,10 +4,13 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {AuthContextProvider} from './context/AuthContext';
+import {BrowserRouter} from 'react-router-dom';
 
 const app = (
   <AuthContextProvider>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </AuthContextProvider>
 );
 
