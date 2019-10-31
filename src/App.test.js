@@ -1,19 +1,37 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import {shallow, mount} from 'enzyme';
 import App from './App';
 
+import { AuthContextProvider } from './context/AuthContext'
+
+import {MemoryRouter} from 'react-router-dom';
+
 it('renders without crashing', () => {
-  shallow(<App />)
+  shallow(<App />);
 });
 
 it('contains a div with App class', () => {
-  const app = shallow(<App />)
-  expect(app.find('.App')).toBeTruthy()
-})
+  const app = shallow(<App />);
+  expect(app.find('.App')).toBeTruthy();
+});
 
-it('renders BrowserRouter with Switch', () => {
-  const app = shallow(<App />)
-  console.log(app.debug())
-  expect(app.find('BrowserRouter').length).toEqual(1)
-  expect(app.find('BrowserRouter').length).toEqual(1)
-})
+describe('When user is logged in <App />', () => {
+  it('when user is logged in renders Home component by default', () => {
+    const context = {
+      token: 'AUTHORIZATION TOKEN',
+    };
+
+    const app = (
+      <AuthContextProvider>
+        <MemoryRouter initialEntries={['/']}>
+          <App />
+        </MemoryRouter>
+      </AuthContextProvider>
+    );
+
+    const wrapper = mount(app);
+    wrapper.setState(context)
+    console.log(wrapper.debug())
+    expect(wrapper.find('Home').length).toEqual(1);
+  });
+});

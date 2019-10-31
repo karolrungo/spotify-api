@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 
 const defaultContext = {
+  token: null,
   onTokenChange: () => {},
   isAuthenticated: () => {}
 };
