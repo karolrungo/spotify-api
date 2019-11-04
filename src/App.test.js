@@ -1,8 +1,7 @@
 import React from 'react';
 import {shallow, mount} from 'enzyme';
 import App from './App';
-
-import { AuthContextProvider } from './context/AuthContext'
+import AuthContext from './context/AuthContext'
 
 import {MemoryRouter} from 'react-router-dom';
 
@@ -16,22 +15,40 @@ it('contains a div with App class', () => {
 });
 
 describe('When user is logged in <App />', () => {
-  it('when user is logged in renders Home component by default', () => {
+  it('renders Home component by default', () => {
     const context = {
-      token: 'AUTHORIZATION TOKEN',
+      isAuthenticated: () => true
     };
 
     const app = (
-      <AuthContextProvider>
+      <AuthContext.Provider value={context}>
         <MemoryRouter initialEntries={['/']}>
           <App />
         </MemoryRouter>
-      </AuthContextProvider>
+      </AuthContext.Provider>
     );
 
     const wrapper = mount(app);
-    wrapper.setState(context)
-    console.log(wrapper.debug())
     expect(wrapper.find('Home').length).toEqual(1);
   });
+
 });
+
+describe('When user is NOT logged in <App />', () => {
+  it('renders Login component when trying to display default path', () => {
+    const context = {
+      isAuthenticated: () => false
+    };
+
+    const app = (
+      <AuthContext.Provider value={context}>
+        <MemoryRouter initialEntries={['/']}>
+          <App />
+        </MemoryRouter>
+      </AuthContext.Provider>
+    );
+
+    const wrapper = mount(app);
+    expect(wrapper.find('Login').length).toEqual(1);
+  });
+})
