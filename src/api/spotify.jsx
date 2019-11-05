@@ -36,6 +36,29 @@ class Spotify {
       }),
     });
   }
+
+  getMyPlaylists() {
+    return this.getUserInfo()
+      .then(resp => resp.data.id)
+      .then(userId => this.getUserPlaylist(userId))
+      .then(resp =>
+        resp.data.items.map(item => ({
+          id: item.id,
+          name: item.name,
+        })),
+      )
+      .catch(err => console.log(err));
+  }
+
+  getUserPlaylist(userId) {
+    return this.axiosInstance({
+      url: `/users/${userId}/playlists`,
+      method: 'get',
+    }).then(resp => {
+      console.log(resp);
+      return resp;
+    });
+  }
 }
 
 export default Spotify;
