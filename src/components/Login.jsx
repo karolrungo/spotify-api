@@ -20,7 +20,7 @@ scope=${SCOPES.join('%20')}&response_type=token&show_dialog=true`;
 
 const Login = props => {
   const authContext = useContext(AuthContext);
-  console.log(authContext)
+  // console.log(authContext)
 
   useEffect(() => {
     console.log(window.history.state)

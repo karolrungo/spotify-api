@@ -1,54 +1,62 @@
 import React from 'react';
 import {shallow, mount} from 'enzyme';
 import App from './App';
-import AuthContext from './context/AuthContext'
+import AuthContext from './context/AuthContext';
 
-import {MemoryRouter} from 'react-router-dom';
+import Navigation from './UI/Navigation';
 
-it('renders without crashing', () => {
-  shallow(<App />);
+import {MemoryRouter, Switch, Route} from 'react-router-dom';
+import PrivateRoute from './hoc/PrivateRoute';
+
+describe('<App />', () => {
+  let app = null;
+
+  beforeEach(() => {
+    app = shallow(<App />);
+  });
+
+  it('contains a div with App class', () => {
+    expect(app.find('.App')).toHaveLength(1);
+  });
+
+  it('renders navigation', () => {
+    expect(app.find(Navigation)).toHaveLength(1);
+  });
+
+  it('renders routing components', () => {
+    expect(app.find(Switch)).toHaveLength(1);
+    expect(app.find(Route)).toHaveLength(2);
+    expect(app.find(PrivateRoute)).toHaveLength(2);
+  });
 });
 
-it('contains a div with App class', () => {
-  const app = shallow(<App />);
-  expect(app.find('.App')).toBeTruthy();
-});
+describe('when rendering default path, <App />', () => {
+  const authContext = {
+    isAuthenticated: jest.fn(),
+  };
+  let app = null;
 
-describe('When user is logged in <App />', () => {
-  it('renders Home component by default', () => {
-    const context = {
-      isAuthenticated: () => true
-    };
-
-    const app = (
-      <AuthContext.Provider value={context}>
+  beforeEach(() => {
+    app = (
+      <AuthContext.Provider value={authContext}>
         <MemoryRouter initialEntries={['/']}>
           <App />
         </MemoryRouter>
       </AuthContext.Provider>
     );
+  });
 
+  it('renders Home component when user is logged in', () => {
+    authContext.isAuthenticated.mockReturnValue(true);
     const wrapper = mount(app);
+
     expect(wrapper.find('Home').length).toEqual(1);
   });
 
-});
-
-describe('When user is NOT logged in <App />', () => {
-  it('renders Login component when trying to display default path', () => {
-    const context = {
-      isAuthenticated: () => false
-    };
-
-    const app = (
-      <AuthContext.Provider value={context}>
-        <MemoryRouter initialEntries={['/']}>
-          <App />
-        </MemoryRouter>
-      </AuthContext.Provider>
-    );
-
+  it('renders Login component when user is not logged in', () => {
+    authContext.isAuthenticated.mockReturnValue(false);
     const wrapper = mount(app);
+
     expect(wrapper.find('Login').length).toEqual(1);
   });
-})
+});
