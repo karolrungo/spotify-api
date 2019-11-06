@@ -15,16 +15,18 @@ class Spotify {
     });
   }
 
-  getUserInfo() {
-    return this.axiosInstance({
+  async getUserInfo() {
+    const userInfo = await this.axiosInstance({
       url: `/me`,
     });
+    return userInfo.data
   }
-  getDevices() {
-    return this.axiosInstance({
+  async getDevices() {
+    const devices = await this.axiosInstance({
       url: `/me/player/devices`,
       method: 'get',
     });
+    return devices.data
   }
 
   changeSongInDevice(deviceId) {
@@ -37,27 +39,32 @@ class Spotify {
     });
   }
 
-  getMyPlaylists() {
-    return this.getUserInfo()
-      .then(resp => resp.data.id)
-      .then(userId => this.getUserPlaylist(userId))
-      .then(resp =>
-        resp.data.items.map(item => ({
-          id: item.id,
-          name: item.name,
-        })),
-      )
-      .catch(err => console.log(err));
+  async getMyPlaylists() {
+    const userInfo = await this.getUserInfo();
+    const playlists = await this.getPlaylists(userInfo.id);
+
+    return playlists.items.map(item => ({
+      id: item.id,
+      name: item.name,
+      img: item.images[2],
+      tracks: null,
+    }));
   }
 
-  getUserPlaylist(userId) {
-    return this.axiosInstance({
+  async getPlaylists(userId) {
+    const playlists = await this.axiosInstance({
       url: `/users/${userId}/playlists`,
       method: 'get',
-    }).then(resp => {
-      console.log(resp);
-      return resp;
     });
+    return playlists.data;
+  }
+
+  async getTracks(playlistId) {
+    const tracks = await this.axiosInstance({
+      url: `/playlists/${playlistId}/tracks`,
+      method: 'get',
+    });
+    return tracks.data;
   }
 }
 

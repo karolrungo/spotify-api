@@ -3,8 +3,6 @@ import {shallow, mount} from 'enzyme';
 import App from './App';
 import AuthContext from './context/AuthContext';
 
-import Navigation from './UI/Navigation';
-
 import {MemoryRouter, Switch, Route} from 'react-router-dom';
 import PrivateRoute from './hoc/PrivateRoute';
 
@@ -20,7 +18,7 @@ describe('<App />', () => {
   });
 
   it('renders navigation', () => {
-    expect(app.find(Navigation)).toHaveLength(1);
+    expect(app.find('Navigation')).toHaveLength(1);
   });
 
   it('renders routing components', () => {
