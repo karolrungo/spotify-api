@@ -3,7 +3,8 @@ import React, {useState} from 'react';
 const defaultContext = {
   token: null,
   onTokenChange: () => {},
-  isAuthenticated: () => {}
+  isAuthenticated: () => {},
+  logout: () => {}
 };
 
 const AuthContext = React.createContext(defaultContext);
@@ -17,6 +18,11 @@ export const AuthContextProvider = props => {
     setToken(newToken)
   }
 
+  const logout = () => {
+    console.log(`Logging out...`)
+    setToken(null)
+  }
+
   const isAuthenticated  = () => Boolean(token)
 
   return (
@@ -24,6 +30,7 @@ export const AuthContextProvider = props => {
       token: token,
       onTokenChange: updateToken,
       isAuthenticated: isAuthenticated,
+      logout: logout,
     }}>
       {console.log(token)}
       {props.children}

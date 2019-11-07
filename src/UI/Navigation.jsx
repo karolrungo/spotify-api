@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import Logout from './Logout'
 
 import './Navigation.scss';
 
@@ -16,9 +17,12 @@ const Navigation = props => {
         <li className="NavItem">
           <Link to="/favourites">Favourites</Link>
         </li>
+        <li className="NavItem">
+          <Logout />
+        </li>
       </ul>
     </nav>
   );
 };
 
-export default Navigation
+export default Navigation;
