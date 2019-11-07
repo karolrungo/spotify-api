@@ -17,13 +17,9 @@ const Playlists = props => {
   };
 
   useEffect(() => {
-    const fetchPlaylists = async () => {
-      const playlists = await spotify.getMyPlaylists();
-      console.log(playlists)
-      addPlaylists(playlists);
-    };
-
-    fetchPlaylists();
+    (async () => {
+      addPlaylists(await spotify.getMyPlaylists());
+    })();
   }, [spotify]);
 
   return (
