@@ -5,7 +5,7 @@ import AuthContext from './../context/AuthContext'
 const CLIENT_ID = 'c2c889279e7140c683ec1c7cdd8bb977';
 const TARGET = 'https://accounts.spotify.com';
 const ENDPOINT = '/authorize';
-const REDIRECT_URI = 'http://localhost:3000/';
+const REDIRECT_URI = process.env.NODE_ENV === 'production' ? 'https://rungokarol.github.io/spotify-api/' : 'http://localhost:3000/'
 const SCOPES = [
   'user-top-read',
   'user-read-currently-playing',

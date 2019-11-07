@@ -2,7 +2,7 @@
   "name": "spotify_api",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://rungokarol.github.io/spotify-api",
+  "homepage": "https://rungokarol.github.io/spotify-api/",
   "dependencies": {
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",

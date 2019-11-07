@@ -26,6 +26,7 @@ class Spotify {
       url: `/me/player/devices`,
       method: 'get',
     });
+    console.log(devices.data)
     return devices.data
   }
 

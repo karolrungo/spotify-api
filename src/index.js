@@ -6,9 +6,11 @@ import * as serviceWorker from './serviceWorker';
 import {AuthContextProvider} from './context/AuthContext';
 import {BrowserRouter} from 'react-router-dom';
 
+const basename = process.env.NODE_ENV === 'production' ? '/spotify-api' : '/'
+
 const app = (
   <AuthContextProvider>
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <App />
     </BrowserRouter>
   </AuthContextProvider>
