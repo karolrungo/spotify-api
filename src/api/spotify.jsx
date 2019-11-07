@@ -43,11 +43,14 @@ class Spotify {
     const userInfo = await this.getUserInfo();
     const playlists = await this.getPlaylists(userInfo.id);
 
-    return playlists.items.map(item => ({
-      id: item.id,
-      name: item.name,
-      img: item.images[2],
-      tracks: null,
+    return Promise.all(playlists.items.map(async item => {
+      const tracks = await this.getTracks(item.id)
+      return {
+        id: item.id,
+        name: item.name,
+        img: item.images[2],
+        tracks: tracks.items.map(({track}) => track.name),
+      }
     }));
   }
 
