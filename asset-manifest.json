@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/spotify-api/static/css/main.7515d71a.chunk.css",
-    "main.js": "/spotify-api/static/js/main.aa2051d1.chunk.js",
-    "main.js.map": "/spotify-api/static/js/main.aa2051d1.chunk.js.map",
+    "main.js": "/spotify-api/static/js/main.74dcb65a.chunk.js",
+    "main.js.map": "/spotify-api/static/js/main.74dcb65a.chunk.js.map",
     "runtime-main.js": "/spotify-api/static/js/runtime-main.6f59ff18.js",
     "runtime-main.js.map": "/spotify-api/static/js/runtime-main.6f59ff18.js.map",
     "static/js/2.e00dd36d.chunk.js": "/spotify-api/static/js/2.e00dd36d.chunk.js",
     "static/js/2.e00dd36d.chunk.js.map": "/spotify-api/static/js/2.e00dd36d.chunk.js.map",
     "index.html": "/spotify-api/index.html",
-    "precache-manifest.da0a0091fbc0892fe466886cd90ab5f6.js": "/spotify-api/precache-manifest.da0a0091fbc0892fe466886cd90ab5f6.js",
+    "precache-manifest.cc10ba7b757149be590f160bee04800b.js": "/spotify-api/precache-manifest.cc10ba7b757149be590f160bee04800b.js",
     "service-worker.js": "/spotify-api/service-worker.js",
     "static/css/main.7515d71a.chunk.css.map": "/spotify-api/static/css/main.7515d71a.chunk.css.map",
     "static/media/logo.svg": "/spotify-api/static/media/logo.25bf045c.svg"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.6f59ff18.js",
     "static/js/2.e00dd36d.chunk.js",
     "static/css/main.7515d71a.chunk.css",
-    "static/js/main.aa2051d1.chunk.js"
+    "static/js/main.74dcb65a.chunk.js"
   ]
 }
