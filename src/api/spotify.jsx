@@ -7,7 +7,7 @@ const buildHeaders = token => ({
   Accept: 'application/json',
 });
 
-class Spotify {
+export default class Spotify {
   constructor(token) {
     this.axiosInstance = axios.create({
       baseURL: baseURL,
@@ -71,5 +71,3 @@ class Spotify {
     return tracks.data;
   }
 }
-
-export default Spotify;

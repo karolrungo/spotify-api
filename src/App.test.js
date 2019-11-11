@@ -24,7 +24,7 @@ describe('<App />', () => {
   it('renders routing components', () => {
     expect(app.find(Switch)).toHaveLength(1);
     expect(app.find(Route)).toHaveLength(2);
-    expect(app.find(PrivateRoute)).toHaveLength(2);
+    expect(app.find(PrivateRoute)).toHaveLength(3);
   });
 });
 

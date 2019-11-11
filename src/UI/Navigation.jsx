@@ -15,6 +15,9 @@ const Navigation = props => {
           <Link to="/playlists">Playlists</Link>
         </li>
         <li className="NavItem">
+          <Link to="/me">My account</Link>
+        </li>
+        <li className="NavItem">
           <Link to="/favourites">Favourites</Link>
         </li>
         <li className="NavItem">
