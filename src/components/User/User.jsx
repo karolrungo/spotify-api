@@ -9,21 +9,17 @@ const User = props => {
   const {token} = useContext(AuthContext);
   const spotify = useMemo(() => new Spotify(token), [token]);
 
-  const updateUser = user => {
-    setUser(user);
-  };
-
-  useEffect(() => {
-    (async () => {
-      const fetched = await spotify.getUserInfo();
-      console.log(fetched);
-      updateUser(fetched);
-    })();
-  }, [spotify]);
+  const getUserInfo = async () => {
+    console.log("button clicked")
+    const fetched = await spotify.getUserInfo();
+    console.log(fetched)
+    setUser(fetched);
+  }
 
   return (
     <React.Fragment>
       <p>user page</p>
+      <button onClick={getUserInfo} > click me </button>
       {user && (
         <div>
           <p>{user.display_name}</p>

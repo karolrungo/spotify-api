@@ -1,26 +1,24 @@
 import React from 'react';
+import {act} from 'react-dom/test-utils';
 import {mount} from 'enzyme';
 import User from './User';
-import Spotify from './../../api/spotify';
+import {getUserInfoMock} from './../../api/spotify';
 jest.mock('./../../api/spotify');
 
 describe('<User />', () => {
-  let wrapper;
-  beforeEach(() => {
-  });
+  let wrapper = null;
 
-  it('renders a paragraph', () => {
-
-    const spotifyMock = new Spotify()
-    spotifyMock.getUserInfo = jest.fn().mockImplementation(() => { 
-    console.log("JESTEM MOCKIEm!")
-    return {
-      name: "Bob"
-    } })
-
-
+  it('calls spotify api on click', async () => {
     wrapper = mount(<User />);
-    expect(spotifyMock.getUserInfo).toHaveBeenCalledTimes(1);
+    await wrapper
+      .find('button')
+      .last()
+      .simulate('click');
+
+    wrapper.update()
+    console.log(wrapper.html());
+
+    expect(getUserInfoMock).toHaveBeenCalledTimes(1);
     expect(wrapper.find('p')).toHaveLength(1);
   });
 });
