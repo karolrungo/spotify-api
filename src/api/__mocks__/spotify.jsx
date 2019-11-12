@@ -1,9 +1,4 @@
-console.log("JESTEM MOCKIEM")
-
-const userInfo = {
-  display_name: "Bob",
-  email: "bob@bob.bob"
-}
+console.log('JESTEM MOCKIEM');
 
 export const getUserInfoMock = jest.fn();
 

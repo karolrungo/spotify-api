@@ -9,16 +9,20 @@ describe('<User />', () => {
   let wrapper = null;
 
   it('calls spotify api on click', async () => {
+    const userInfo = {
+      display_name: 'Bob',
+      email: 'bob@bob.bob',
+    };
+    getUserInfoMock.mockImplementation(() => Promise.resolve(userInfo));
+
     wrapper = mount(<User />);
     await wrapper
       .find('button')
       .last()
       .simulate('click');
+    expect(getUserInfoMock).toHaveBeenCalledTimes(1);
 
     wrapper.update()
-    console.log(wrapper.html());
-
-    expect(getUserInfoMock).toHaveBeenCalledTimes(1);
-    expect(wrapper.find('p')).toHaveLength(1);
+    expect(wrapper.find('p')).toHaveLength(3)
   });
 });
