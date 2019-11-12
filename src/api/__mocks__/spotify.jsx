@@ -1,6 +1,6 @@
 console.log('JESTEM MOCKIEM');
 
-export const getUserInfoMock = jest.fn();
+const getUserInfoMock = jest.fn();
 
 const mock = jest.fn().mockImplementation(() => ({
   getUserInfo: getUserInfoMock,
