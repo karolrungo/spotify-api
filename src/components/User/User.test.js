@@ -1,5 +1,4 @@
 import React from 'react';
-import {act} from 'react-dom/test-utils';
 import {mount} from 'enzyme';
 import User from './User';
 import Spotify from './../../api/spotify';
@@ -26,6 +25,7 @@ describe('<User />', () => {
     };
     spotifyMock.getUserInfo.mockResolvedValue(userInfo);
     wrapper = mount(<User />);
+    expect(wrapper.find('p')).toHaveLength(1)
 
     setImmediate(() => {
       wrapper.update()
