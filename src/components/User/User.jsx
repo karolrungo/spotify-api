@@ -1,4 +1,10 @@
-import React, {useContext, useEffect, useState, useMemo} from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+} from 'react';
 import AuthContext from './../../context/AuthContext';
 import Spotify from './../../api/spotify';
 
@@ -9,17 +15,17 @@ const User = props => {
   const {token} = useContext(AuthContext);
   const spotify = useMemo(() => new Spotify(token), [token]);
 
-  const getUserInfo = async () => {
-    console.log("button clicked")
-    const fetched = await spotify.getUserInfo();
-    console.log(fetched)
-    setUser(fetched);
-  }
+  const fetchUserData = useCallback(async () => {
+    setUser(await spotify.getUserInfo());
+  }, [spotify]);
+
+  useEffect(() => {
+    fetchUserData();
+  }, [fetchUserData]);
 
   return (
     <React.Fragment>
       <p>user page</p>
-      <button onClick={getUserInfo} > click me </button>
       {user && (
         <div>
           <p>{user.display_name}</p>

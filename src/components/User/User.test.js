@@ -13,31 +13,23 @@ describe('<User />', () => {
     jest.clearAllMocks()
   })
 
-  it('calls spotify api on click', () => {
-    wrapper = mount(<User />);
+  it('calls api when component is rendered', () => {
     expect(spotifyMock.getUserInfo).not.toHaveBeenCalled();
-    wrapper
-      .find('button')
-      .last()
-      .simulate('click');
+    wrapper = mount(<User />);
     expect(spotifyMock.getUserInfo).toHaveBeenCalledTimes(1);
-  });
+  })
 
-  it('updates display info with data from api', async () => {
+  it('renders data from api in paragraphs', () => {
     const userInfo = {
       display_name: 'Bob',
       email: 'bob@bob.bob',
     };
-    spotifyMock.getUserInfo.mockImplementation(() => Promise.resolve(userInfo));
-
+    spotifyMock.getUserInfo.mockResolvedValue(userInfo);
     wrapper = mount(<User />);
-    expect(wrapper.find('p')).toHaveLength(1)
-    await wrapper
-      .find('button')
-      .last()
-      .simulate('click');
 
-    wrapper.update()
-    expect(wrapper.find('p')).toHaveLength(3)
+    setImmediate(() => {
+      wrapper.update()
+      expect(wrapper.find('p')).toHaveLength(3)
+    })
   })
 });
