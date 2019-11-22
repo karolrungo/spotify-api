@@ -1,4 +1,6 @@
-import React, {useContext} from 'react';
+import React from 'react';
+
+import withSpotify from './../hoc/withSpotify'
 
 const Home = props => {
   const {api} = props
@@ -20,4 +22,4 @@ const Home = props => {
   );
 };
 
-export default Home;
+export default withSpotify(Home);

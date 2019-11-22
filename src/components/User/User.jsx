@@ -1,10 +1,9 @@
 import React, {
-  useContext,
   useEffect,
   useState,
-  useMemo,
   useCallback,
 } from 'react';
+import withSpotify from './../../hoc/withSpotify'
 
 import './User.scss';
 
@@ -33,4 +32,6 @@ const User = props => {
   );
 };
 
-export default User;
+const UserWithSpotify = withSpotify(User)
+
+export default UserWithSpotify

@@ -10,22 +10,17 @@ import User from './components/User/User';
 import Playlists from './components/Playlists';
 import Home from './components/Home';
 
-
-import withSpotify from './hoc/withSpotify'
-
 function App() {
-  const HomeWithSpotify = withSpotify(Home)
-  const PlaylistsWithSpotify = withSpotify(Playlists)
-  const UserWithSpotify = withSpotify(User)
   const {isAuthenticated} = useContext(AuthContext)
+
   return (
     <div className="App">
       { isAuthenticated()? <Navigation /> : null}
       <Switch>
         <Route path="/login" component={Login} />
-        <PrivateRoute exact path="/" component={HomeWithSpotify} />
-        <PrivateRoute path="/playlists" component={PlaylistsWithSpotify} />
-        <PrivateRoute path="/me" component={UserWithSpotify} />
+        <PrivateRoute exact path="/" component={Home} />
+        <PrivateRoute path="/playlists" component={Playlists} />
+        <PrivateRoute path="/me" component={User} />
         <Route render={() => <Redirect to="/" />} />
       </Switch>
     </div>

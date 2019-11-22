@@ -1,5 +1,6 @@
-import React, {useContext, useEffect, useState, useMemo} from 'react';
+import React, { useEffect, useState } from 'react';
 import Playlist from './Playlist';
+import withSpotify from './../hoc/withSpotify'
 
 import './Playlists.scss';
 
@@ -27,4 +28,4 @@ const Playlists = props => {
   );
 };
 
-export default Playlists;
+export default withSpotify(Playlists);
