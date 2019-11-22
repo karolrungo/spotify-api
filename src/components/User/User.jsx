@@ -5,19 +5,16 @@ import React, {
   useMemo,
   useCallback,
 } from 'react';
-import AuthContext from './../../context/AuthContext';
-import Spotify from './../../api/spotify';
 
 import './User.scss';
 
 const User = props => {
   const [user, setUser] = useState(null);
-  const {token} = useContext(AuthContext);
-  const spotify = useMemo(() => new Spotify(token), [token]);
+  const {api} = props
 
   const fetchUserData = useCallback(async () => {
-    setUser(await spotify.getUserInfo());
-  }, [spotify]);
+    setUser(await api.getUserInfo());
+  }, [api]);
 
   useEffect(() => {
     fetchUserData();

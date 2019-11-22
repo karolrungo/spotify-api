@@ -1,15 +1,10 @@
 import React, {useContext, useEffect, useState, useMemo} from 'react';
-import AuthContext from './../context/AuthContext';
 import Playlist from './Playlist';
-
-import Spotify from './../api/spotify';
 
 import './Playlists.scss';
 
 const Playlists = props => {
-  const {token} = useContext(AuthContext);
-  const spotify = useMemo(() => new Spotify(token), [token]);
-
+  const {api} = props
   const [playlists, setPlaylists] = useState([]);
 
   const addPlaylists = newPlaylists => {
@@ -18,9 +13,9 @@ const Playlists = props => {
 
   useEffect(() => {
     (async () => {
-      addPlaylists(await spotify.getMyPlaylists());
+      addPlaylists(await api.getMyPlaylists());
     })();
-  }, [spotify]);
+  }, [api]);
 
   return (
     <div className="Playlists">

@@ -9,15 +9,20 @@ import User from './components/User/User';
 import Playlists from './components/Playlists';
 import Home from './components/Home';
 
+import withSpotify from './hoc/withSpotify'
+
 function App() {
+  const HomeWithSpotify = withSpotify(Home)
+  const PlaylistsWithSpotify = withSpotify(Playlists)
+  const UserWithSpotify = withSpotify(User)
   return (
     <div className="App">
       <Navigation />
       <Switch>
         <Route path="/login" component={Login} />
-        <PrivateRoute exact path="/" component={Home} />
-        <PrivateRoute path="/playlists" component={Playlists} />
-        <PrivateRoute path="/me" component={User} />
+        <PrivateRoute exact path="/" component={HomeWithSpotify} />
+        <PrivateRoute path="/playlists" component={PlaylistsWithSpotify} />
+        <PrivateRoute path="/me" component={UserWithSpotify} />
         <Route render={() => <Redirect to="/" />} />
       </Switch>
     </div>
