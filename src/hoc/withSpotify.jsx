@@ -6,11 +6,7 @@ const WithSpotify = WrappedComponent => {
   const {token} = useContext(AuthContext);
   const spotify = useMemo(() => new Spotify(token), [token]);
 
-  return class extends React.Component {
-    render() {
-      return <WrappedComponent {...this.props} api={spotify}/>
-    }
-  }
+  return props => <WrappedComponent {...props} api={spotify} />;
 };
 
 export default WithSpotify;
