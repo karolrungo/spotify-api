@@ -3,7 +3,7 @@ import {shallow, mount} from 'enzyme';
 import App from './App';
 import AuthContext from './context/AuthContext';
 
-import {MemoryRouter, Switch, Route} from 'react-router-dom';
+import {MemoryRouter, Switch, Route, useHistory} from 'react-router-dom';
 import PrivateRoute from './hoc/PrivateRoute';
 
 describe('<App />', () => {
@@ -52,13 +52,12 @@ describe('when not logged in <App />', () => {
 });
 
 describe('when logged in <App />', () => {
-  const authContext = {
-    isAuthenticated: jest.fn(),
-  };
   let wrapper = null;
 
   beforeEach(() => {
-    authContext.isAuthenticated.mockReturnValue(true);
+    const authContext = {
+      isAuthenticated: jest.fn().mockReturnValue(true),
+    };
     const app = (
       <AuthContext.Provider value={authContext}>
         <MemoryRouter initialEntries={['/']}>
@@ -73,8 +72,17 @@ describe('when logged in <App />', () => {
     expect(wrapper.find('Home').length).toEqual(1);
   });
 
+  it('renders Playlists component when navigated', () => {
+    const history = wrapper.find('Router').prop('history')
+    history.push('/playlists')
+    wrapper.update()
+
+    expect(wrapper.find('Playlists').length).toEqual(1)
+  })
+
   it('renders Navigation component', () => {
     expect(wrapper.find('Navigation').length).toEqual(1);
   });
 });
+
 
