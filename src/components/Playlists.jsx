@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Playlist from './Playlist';
-import withSpotify from './../hoc/withSpotify'
+import withSpotify from './../hoc/withSpotify';
 
 import './Playlists.scss';
 
 const Playlists = props => {
-  const {api} = props
+  const {api} = props;
   const [playlists, setPlaylists] = useState([]);
 
   const addPlaylists = newPlaylists => {
@@ -14,7 +14,9 @@ const Playlists = props => {
 
   useEffect(() => {
     (async () => {
-      addPlaylists(await api.getMyPlaylists());
+      try {
+        addPlaylists(await api.getMyPlaylists());
+      } catch {}
     })();
   }, [api]);
 

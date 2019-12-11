@@ -1,18 +1,16 @@
-import React, {
-  useEffect,
-  useState,
-  useCallback,
-} from 'react';
-import withSpotify from './../../hoc/withSpotify'
+import React, {useEffect, useState, useCallback} from 'react';
+import withSpotify from './../../hoc/withSpotify';
 
 import './User.scss';
 
 const User = props => {
   const [user, setUser] = useState(null);
-  const {api} = props
+  const {api} = props;
 
   const fetchUserData = useCallback(async () => {
-    setUser(await api.getUserInfo());
+    try {
+      setUser(await api.getUserInfo());
+    } catch {}
   }, [api]);
 
   useEffect(() => {
@@ -32,6 +30,6 @@ const User = props => {
   );
 };
 
-const UserWithSpotify = withSpotify(User)
+const UserWithSpotify = withSpotify(User);
 
-export default UserWithSpotify
+export default UserWithSpotify;

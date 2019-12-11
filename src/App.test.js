@@ -3,7 +3,7 @@ import {shallow, mount} from 'enzyme';
 import App from './App';
 import AuthContext from './context/AuthContext';
 
-import {MemoryRouter, Switch, Route, useHistory} from 'react-router-dom';
+import {MemoryRouter, Switch, Route} from 'react-router-dom';
 import PrivateRoute from './hoc/PrivateRoute';
 
 describe('<App />', () => {
@@ -39,7 +39,7 @@ describe('when not logged in <App />', () => {
         </MemoryRouter>
       </AuthContext.Provider>
     );
-    wrapper = mount(app)
+    wrapper = mount(app);
   });
 
   it('renders Login component', () => {
@@ -65,7 +65,7 @@ describe('when logged in <App />', () => {
         </MemoryRouter>
       </AuthContext.Provider>
     );
-    wrapper = mount(app)
+    wrapper = mount(app);
   });
 
   it('renders Home component by default', () => {
@@ -73,16 +73,30 @@ describe('when logged in <App />', () => {
   });
 
   it('renders Playlists component when navigated', () => {
-    const history = wrapper.find('Router').prop('history')
-    history.push('/playlists')
-    wrapper.update()
+    const history = wrapper.find('Router').prop('history');
+    history.push('/playlists');
+    wrapper.update();
 
-    expect(wrapper.find('Playlists').length).toEqual(1)
-  })
+    expect(wrapper.find('Playlists').length).toEqual(1);
+  });
+
+  it('renders User component when navigated', () => {
+    const history = wrapper.find('Router').prop('history');
+    history.push('/me');
+    wrapper.update();
+
+    expect(wrapper.find('User').length).toEqual(1);
+  });
+
+  it('renders Home component when navigated to Favourites- lack of impl', () => {
+    const history = wrapper.find('Router').prop('history');
+    history.push('/favourites');
+    wrapper.update();
+
+    expect(wrapper.find('Home').length).toEqual(1);
+  });
 
   it('renders Navigation component', () => {
     expect(wrapper.find('Navigation').length).toEqual(1);
   });
 });
-
-
